@@ -1,4 +1,4 @@
-package org.apache.camel.standalone.shell;
+package org.apache.camel.standalone.logging;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;

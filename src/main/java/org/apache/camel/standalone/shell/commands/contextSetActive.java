@@ -17,6 +17,7 @@ public class contextSetActive extends BaseCommand {
     public void main(@Required @Argument String name) {
         try {
             standalone.setActiveContext(name);
+            context.getSession().put("activeContext", name);
         } catch (Exception e) {
             out.println("Could set the active context to '" + name + "': " + e.getMessage(), Color.red);
         }

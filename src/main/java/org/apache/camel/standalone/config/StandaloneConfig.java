@@ -1,5 +1,6 @@
 package org.apache.camel.standalone.config;
 
+import org.apache.camel.standalone.StandaloneRunner;
 import org.crsh.spring.SpringBootstrap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,5 +25,10 @@ public class StandaloneConfig {
         properties.put("crash.auth.simple.password", "admin");
         springBootstrap.setConfig(properties);
         return springBootstrap;
+    }
+
+    @Bean
+    public StandaloneRunner standaloneRunner() {
+        return StandaloneRunner.getInstance();
     }
 }

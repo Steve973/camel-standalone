@@ -11,6 +11,7 @@ import org.crsh.cli.impl.lang.ObjectCommandDescriptor;
 import org.crsh.cli.impl.lang.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.Iterator;

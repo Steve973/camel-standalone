@@ -1,15 +1,22 @@
 package commands.base
 
+activeContext = 'main'
+
 welcome = { -> '''\
+
+
 Welcome to the
  .--.                 .    .-.  .               .      .                 .-. .        . .
 :                     |   (   )_|_              |      |                (   )|        | |
 |    .-.  .--.--. .-. |    `-.  |  .-.  .--. .-.| .-.  | .-. .--. .-.    `-. |--. .-. | |
 :   (   | |  |  |(.-' |   (   ) | (   | |  |(   |(   | |(   )|  |(.-'   (   )|  |(.-' | |
  `--'`-'`-'  '  `-`--'`-   `-'  `-'`-'`-'  `-`-'`-`-'`-`-`-' '  `-`--'   `-' '  `-`--'`-`-
-                                                                          Powered by CRaSH'''
+                                                                          Powered by CRaSH
+
+
+'''
 }
 
 prompt = { ->
-    "standalone-shell (${context['activeContext']})>"
+    "standalone-shell (${activeContext})>"
 }

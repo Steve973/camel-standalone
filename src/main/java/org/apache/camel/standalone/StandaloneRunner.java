@@ -8,6 +8,9 @@ import org.apache.camel.standalone.routes.JarDropInRouteBuilder;
 import org.apache.camel.standalone.routes.XmlDropInRouteBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.crsh.plugin.CRaSHPlugin;
+import org.crsh.spring.SpringBootstrap;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.util.concurrent.ExecutorService;
@@ -18,6 +21,9 @@ public class StandaloneRunner extends Standalone implements StandaloneListener {
     private static final StandaloneRunner instance = new StandaloneRunner();
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
     private String workDir = ".";
+
+    @Autowired
+    SpringBootstrap crash;
 
     private StandaloneRunner() {
         LOGGER.info("Creating standalone runner");
@@ -33,6 +39,7 @@ public class StandaloneRunner extends Standalone implements StandaloneListener {
         instance.configureLogging();
         instance.registerListener(instance);
         instance.run();
+        instance.crash.getContext().getPlugins().forEach(CRaSHPlugin::init);
         // TODO Start up the shell
         instance.fsm.onEvent(instance, StandaloneStateMachine.shutdownEvent);
     }

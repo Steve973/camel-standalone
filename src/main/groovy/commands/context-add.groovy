@@ -3,9 +3,9 @@ import org.crsh.cli.*
 import org.crsh.text.Color
 
 @Usage('Adds a Camel Context')
-@Man('Adds a Camel Context to Camel Standalone.  Supply the name of the context, and supply the ' +
-        '--start parameter to start the context upon creation, and supply the --active parameter ' +
-        'to make this context the active context in the shell.')
+@Man('Adds a Camel Context to Camel Standalone.  Supply the name of the context, and supply the \
+        --start parameter to start the context upon creation, and supply the --active parameter \
+        to make this context the active context in the shell.')
 class contextAdd {
     StandaloneRunner standalone;
 

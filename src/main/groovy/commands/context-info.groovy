@@ -1,18 +1,26 @@
 import org.apache.camel.CamelContext
 import org.apache.camel.Route
 import org.apache.camel.standalone.StandaloneRunner
-import org.crsh.cli.*
+import org.crsh.cli.Argument
+import org.crsh.cli.Command
+import org.crsh.cli.Man
+import org.crsh.cli.Usage
+import org.crsh.command.InvocationContext
+import org.springframework.beans.factory.BeanFactory
 
 @Usage('Prints info about Camel Standalone\'s registered contexts')
-@Man('Prints info about Camel Standalone\'s registered contexts. Supply the name of a context by using the ' +
-        '--name=<contextName> parameter for info on a single context, or get information about all registered ' +
-        'contexts by using the command without any parameters.')
+@Man('Prints info about Camel Standalone\'s registered contexts. Supply \
+the name of a context by using the --name=<contextName> parameter for info \
+on a single context, or get information about all registered contexts by \
+using the command without any parameters.')
 class contextInfo {
     private def String INDENT = '  '
     StandaloneRunner standalone
 
     @Command
-    public void main(@Argument String name) {
+    public void main(InvocationContext context, @Argument String name) {
+        BeanFactory factory = context.attributes['spring.beanfactory']
+        standalone = factory.getBean StandaloneRunner
         if (!name) {
             printAllContextInfo()
         } else {

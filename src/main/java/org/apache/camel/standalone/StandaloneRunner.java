@@ -2,6 +2,7 @@ package org.apache.camel.standalone;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.standalone.cli.StandaloneCommandLineInterface;
+import org.apache.camel.standalone.config.StandaloneConfig;
 import org.apache.camel.standalone.fsm.StandaloneStateMachine;
 import org.apache.camel.standalone.listener.StandaloneListener;
 import org.apache.camel.standalone.routes.JarDropInRouteBuilder;
@@ -11,6 +12,8 @@ import org.apache.logging.log4j.Logger;
 import org.crsh.plugin.CRaSHPlugin;
 import org.crsh.spring.SpringBootstrap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.File;
 import java.util.concurrent.ExecutorService;
@@ -22,9 +25,6 @@ public class StandaloneRunner extends Standalone implements StandaloneListener {
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
     private String workDir = ".";
 
-    @Autowired
-    SpringBootstrap crash;
-
     private StandaloneRunner() {
         LOGGER.info("Creating standalone runner");
     }
@@ -35,12 +35,10 @@ public class StandaloneRunner extends Standalone implements StandaloneListener {
 
     public static void main(String... args) throws Exception {
         instance.initializeStateMachine();
-        new StandaloneCommandLineInterface(instance).processCommandLineArgs(args);
+        new StandaloneCommandLineInterface().processCommandLineArgs(args);
         instance.configureLogging();
         instance.registerListener(instance);
         instance.run();
-        instance.crash.getContext().getPlugins().forEach(CRaSHPlugin::init);
-        // TODO Start up the shell
         instance.fsm.onEvent(instance, StandaloneStateMachine.shutdownEvent);
     }
 

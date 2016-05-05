@@ -3,8 +3,8 @@ import org.crsh.cli.*
 import org.crsh.text.Color
 
 @Usage('Sets a Camel Context as the active context in the shell')
-@Man('Sets a Camel Context as the active context in the shell for operations. ' +
-        'Supply the name of the context to remove.')
+@Man('Sets a Camel Context as the active context in the shell for operations. \
+      Supply the name of the context to remove.')
 class contextSetActive {
     StandaloneRunner standalone;
 

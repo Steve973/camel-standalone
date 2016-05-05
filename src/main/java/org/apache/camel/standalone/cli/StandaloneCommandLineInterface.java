@@ -1,6 +1,7 @@
 package org.apache.camel.standalone.cli;
 
-import org.apache.camel.standalone.StandaloneRunner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.crsh.cli.impl.bootstrap.CommandProvider;
 import org.crsh.cli.impl.descriptor.HelpDescriptor;
 import org.crsh.cli.impl.invocation.InvocationMatch;
@@ -9,9 +10,6 @@ import org.crsh.cli.impl.lang.CommandFactory;
 import org.crsh.cli.impl.lang.Instance;
 import org.crsh.cli.impl.lang.ObjectCommandDescriptor;
 import org.crsh.cli.impl.lang.Util;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -20,11 +18,6 @@ import java.util.stream.Collectors;
 
 public class StandaloneCommandLineInterface {
     private static final Logger LOGGER = LogManager.getLogger(StandaloneCommandLineInterface.class);
-    private final StandaloneRunner instance;
-
-    public StandaloneCommandLineInterface(StandaloneRunner instance) {
-        this.instance = instance;
-    }
 
     private static <T> void handle(Class<T> commandClass, String line) throws Exception {
         ObjectCommandDescriptor<T> descriptor = CommandFactory.DEFAULT.create(commandClass);

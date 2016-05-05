@@ -5,6 +5,7 @@ import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.config.AbstractConfiguration;
 import org.apache.logging.log4j.core.config.ConfigurationSource;
 import org.apache.logging.log4j.core.config.LoggerConfig;
+import org.apache.logging.log4j.status.StatusLogger;
 import org.apache.logging.log4j.util.PropertiesUtil;
 
 public class StandaloneLoggerConfiguration extends AbstractConfiguration {

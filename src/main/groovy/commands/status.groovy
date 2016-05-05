@@ -4,8 +4,8 @@ import org.crsh.cli.Man
 import org.crsh.cli.Usage
 
 @Usage('Prints the status of Camel Standalone')
-@Man('Prints the status of Camel Standalone. ' +
-        'Possible values are: New, Initialized, Started, Stopped, Suspended, and Shut Down.')
+@Man('Prints the status of Camel Standalone. \
+      Possible values are: New, Initialized, Started, Stopped, Suspended, and Shut Down.')
 class status {
     StandaloneRunner instance
 

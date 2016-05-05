@@ -27,7 +27,7 @@ public class StandaloneConfig {
         return springBootstrap;
     }
 
-    @Bean
+    @Bean(name = "StandaloneRunner")
     public StandaloneRunner standaloneRunner() {
         return StandaloneRunner.getInstance();
     }

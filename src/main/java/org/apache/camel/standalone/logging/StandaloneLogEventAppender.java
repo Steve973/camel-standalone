@@ -26,6 +26,10 @@ public class StandaloneLogEventAppender extends AbstractAppender {
         this.maxSize = maxSize;
     }
 
+    public LogEvent[] getLogEvents() {
+        return logEventQueue.toArray(new LogEvent[logEventQueue.size()]);
+    }
+
     @Override
     public void append(LogEvent event) {
         if (logEventQueue.size() == maxSize) {

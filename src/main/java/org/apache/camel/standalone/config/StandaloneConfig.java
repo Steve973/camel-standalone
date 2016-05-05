@@ -12,7 +12,7 @@ public class StandaloneConfig {
     @Bean
     public SpringBootstrap springBootstrap() {
         SpringBootstrap springBootstrap = new SpringBootstrap();
-        springBootstrap.setCmdMountPointConfig("classpath:/org/apache/camel/standalone/shell/commands");
+        springBootstrap.setCmdMountPointConfig("classpath:/commands");
         springBootstrap.setConfMountPointConfig("classpath:/camel-standalone-crash.properties");
         Properties properties = new Properties();
         properties.put("crash.vfs.refresh_period", "1");

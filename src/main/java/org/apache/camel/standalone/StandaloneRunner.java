@@ -1,5 +1,6 @@
 package org.apache.camel.standalone;
 
+import javafx.application.Application;
 import org.apache.camel.CamelContext;
 import org.apache.camel.standalone.cli.StandaloneCommandLineInterface;
 import org.apache.camel.standalone.config.StandaloneConfig;
@@ -16,6 +17,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.File;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -34,12 +36,30 @@ public class StandaloneRunner extends Standalone implements StandaloneListener {
     }
 
     public static void main(String... args) throws Exception {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(StandaloneConfig.class);
+        SpringBootstrap bootstrap = ctx.getBean(SpringBootstrap.class);
+        ctx.start();
+        configureSpringBootstrap(ctx);
         instance.initializeStateMachine();
         new StandaloneCommandLineInterface().processCommandLineArgs(args);
         instance.configureLogging();
         instance.registerListener(instance);
         instance.run();
         instance.fsm.onEvent(instance, StandaloneStateMachine.shutdownEvent);
+    }
+
+    private static void configureSpringBootstrap(ApplicationContext ctx) {
+        SpringBootstrap bootstrap = ctx.getBean(SpringBootstrap.class);
+        bootstrap.setBeanFactory(ctx.getAutowireCapableBeanFactory());
+        bootstrap.setBeanClassLoader(ctx.getClassLoader());
+        bootstrap.setCmdMountPointConfig("classpath:/commands");
+        bootstrap.setConfMountPointConfig("classpath:/camel-standalone-crash.properties");
+        Properties properties = new Properties();
+        properties.put("crash.vfs.refresh_period", "1");
+        properties.put("crash.auth", "simple");
+        properties.put("crash.auth.simple.username", "admin");
+        properties.put("crash.auth.simple.password", "admin");
+        bootstrap.setConfig(properties);
     }
 
     private void configureContextDropIn(CamelContext context) throws Exception {

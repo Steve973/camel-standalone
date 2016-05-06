@@ -19,6 +19,7 @@ class contextInfo {
 
     @Command
     public void main(InvocationContext context, @Argument String name) {
+        context.attributes.keySet().each { out.println it }
         BeanFactory factory = context.attributes['spring.beanfactory']
         standalone = factory.getBean StandaloneRunner
         if (!name) {
